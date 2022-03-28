@@ -1,0 +1,49 @@
+# This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Test
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Cache node modules
+        uses: actions/cache@v2.1.7
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.OS }}-build-${{ env.cache-name }}-${{ runner.OS }}-build-${{ runner.OS }}-
+
+      - run: npm install yarn -g
+      - run: yarn install --frozen-lockfile
+      - run: yarn test
+      - name: Codecov
+        uses: codecov/codecov-action@v2.1.0
+        with:
+          # Directory to search for coverage reports.
+          directory: coverage
+          # Flag upload to group coverage metrics (e.g. unittests | integration | ui,chrome)
+          flags: unittests
+          # Specify whether or not CI build should fail if Codecov runs into an error during upload
+          fail_ci_if_error: true
+          # Specify whether the Codecov output should be verbose
+          verbose: true

@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "lib": ["ESNext", "DOM"],
+    "module": "CommonJS",
+    "newLine": "lf",
+    "noImplicitAny": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "removeComments": false,
+    "resolveJsonModule": true
+  }
+}
