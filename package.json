@@ -1,7 +1,26 @@
 {
   "name": "cesium-toolkit",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gu-Miao/cesium-toolkit.git"
+  },
+  "keywords": [
+    "cesium",
+    "esm",
+    "typescript"
+  ],
+  "author": "GuTianhuang",
+  "bugs": {
+    "url": "https://github.com/Gu-Miao/cesium-toolkit/issues"
+  },
+  "homepage": "https://github.com/Gu-Miao/cesium-toolkit#readme",
+  "global": "CesiumToolkit",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "browser": "dist/browser/cesium-toolkit.min.js",
+  "module": "dist/es/index.js",
   "files": [
     "package.json",
     "README.md",
@@ -9,11 +28,6 @@
     "LICENSE",
     "dist"
   ],
-  "global": "CesiumToolkit",
-  "types": "dist/index.d.ts",
-  "main": "dist/index.js",
-  "browser": "dist/browser/cesium-toolkit.min.js",
-  "module": "dist/es/index.js",
   "scripts": {
     "prepare": "husky install",
     "serve": "wait-on dist/index.js && live-server --open=test --watch=test,dist",
