@@ -24,7 +24,6 @@
     "@rollup/plugin-json": "^4.1.0",
     "@swc/core": "^1.2.150",
     "@swc/helpers": "^0.3.6",
-    "@types/jest": "^27.0.2",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
     "cesium": "^1.91.0",
