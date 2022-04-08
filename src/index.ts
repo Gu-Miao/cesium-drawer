@@ -13,3 +13,4 @@ export {
   PolylineDataSet,
   PolygonDataSet
 } from './Drawer'
+export { addHeight, setHeight } from './utils'

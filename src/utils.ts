@@ -31,3 +31,14 @@ export function addHeight(position: Cartesian3, height = 0) {
   cartographic.height += height
   return Cartographic.toCartesian(cartographic)
 }
+
+/**
+ * Add height to a cartesian coordinate
+ * @param position Cartesian position
+ * @param height Height to add
+ */
+export function setHeight(position: Cartesian3, height = 0) {
+  const cartographic = Cartographic.fromCartesian(position)
+  cartographic.height = height
+  return Cartographic.toCartesian(cartographic)
+}
