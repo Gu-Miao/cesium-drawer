@@ -3,8 +3,8 @@ const Cesium = window.Cesium
 const { Viewer, createWorldTerrain } = Cesium
 
 /** @type {import('..')} */
-const CesiumDrawer = window.CesiumDrawer
-const { Drawer } = CesiumDrawer
+const CesiumToolkit = window.CesiumToolkit
+const { Drawer } = CesiumToolkit
 
 const viewer = new Viewer('cesiumContainer', {
   terrainProvider: createWorldTerrain()
