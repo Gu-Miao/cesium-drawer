@@ -1,5 +1,5 @@
 {
-  "name": "cesium-drawer",
+  "name": "cesium-toolkit",
   "version": "0.1.0",
   "license": "MIT",
   "files": [
@@ -9,10 +9,9 @@
     "LICENSE",
     "dist"
   ],
-  "global": "CesiumDrawer",
-  "types": "types/index.d.ts",
+  "global": "CesiumToolkit",
   "main": "dist/index.js",
-  "browser": "dist/browser/cesium-drawer.min.js",
+  "browser": "dist/browser/cesium-toolkit.min.js",
   "module": "dist/es/index.js",
   "scripts": {
     "build": "rollup -c",
