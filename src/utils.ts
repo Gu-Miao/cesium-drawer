@@ -141,3 +141,41 @@ export function getHeadingDegree(p1: Cartesian3, p2: Cartesian3) {
     return realAlpha
   }
 }
+
+/**
+ * Get pitch degree.
+ * @param p1 The first position.
+ * @param p2 Another position.
+ * @returns Pitch degree.
+ */
+export function getPitchDegree(p1: Cartesian3, p2: Cartesian3) {
+  const { x: x1, y: y1, z: z1 } = p1
+  const { x: x2, y: y2, z: z2 } = p2
+
+  const xDiff = x2 - x1
+  const yDiff = y2 - y1
+  const zDiff = z2 - z1
+
+  // The new position is laid on x-y surface, so there
+  // is no pitch.
+  if (zDiff === 0) {
+    return 0
+  }
+
+  // The new position is laid on z-axis, so if z2-z1>0,
+  // 90; if z2-z1<0, -90.
+  if (xDiff === 0 && yDiff === 0) {
+    return zDiff > 0 ? 90 : -90
+  }
+
+  const distance = Cartesian3.distance(p1, p2)
+
+  // tanθ=distance from new position to sub point / distance from
+  // sub point to previous position.
+  const sinTheta = (z2 - z1) / distance
+  const theta = (Math.abs(Math.asin(sinTheta)) / Math.PI) * 180
+
+  // Pitch's plus or minus is according to z2-z1, if z2-z1>0, positive
+  // otherwise negative.
+  return zDiff > 0 ? theta : -theta
+}
