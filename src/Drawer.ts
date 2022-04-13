@@ -21,7 +21,8 @@ import type {
   PolygonGraphics
 } from 'cesium'
 import type { PointEntity, LabelEntity, PolylineEntity, PolygonEntity } from './types'
-import { removeArrayItemFromBehind, addHeight } from './utils'
+import { removeArrayItemFromBehind } from './utils'
+import { addHeight } from './cesium'
 
 export type DrawerConstructorOptions = {
   viewer: Viewer
