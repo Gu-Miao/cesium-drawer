@@ -8,34 +8,21 @@ import {
   Cartographic,
   Math as CesiumMath,
   Cartesian2,
-  PolygonGraphics,
   PolygonHierarchy
 } from 'cesium'
 import type {
   Viewer,
-  EntityCollection,
   Cartesian3,
+  EntityCollection,
+  Entity,
+  LabelGraphics,
   PointGraphics,
   PolylineGraphics,
-  LabelGraphics,
-  Entity
+  PolygonGraphics
 } from 'cesium'
+import type { PointEntity, LabelEntity, PolylineEntity, PolygonEntity } from './types'
 import { removeArrayItemFromBehind, addHeight } from './utils'
 
-export type PointEntity = Entity & {
-  point: Required<Entity['point']>
-  position: Required<Entity['position']>
-}
-export type LabelEntity = Entity & {
-  label: Required<Entity['label']>
-  position: Required<Entity['position']>
-}
-export type PolylineEntity = Entity & {
-  polyline: Required<Entity['polyline']>
-}
-export type PolygonEntity = Entity & {
-  polygon: Required<Entity['polygon']>
-}
 export type DrawerConstructorOptions = {
   viewer: Viewer
   dataSourceName?: string
@@ -113,7 +100,7 @@ const defulatDrawPolygonOptions: DrawPolygonOptions = {
   polygon: defaultPolygonOptions
 }
 
-class Drawer {
+export class Drawer {
   /** Gets the Viewer instance */
   viewer: Viewer
   /** Gets the DataSource instance to be visualized */
@@ -151,7 +138,7 @@ class Drawer {
         ...pointOptions
       },
       position
-    })
+    }) as PointEntity
   }
   /**
    * Create label entity
@@ -177,7 +164,7 @@ class Drawer {
         text
       },
       position: labelPosition
-    })
+    }) as LabelEntity
   }
   /**
    * Draw polyline graphic
@@ -203,7 +190,7 @@ class Drawer {
         ...polyline,
         positions: showGuidance ? new CallbackProperty(() => positions, false) : positions
       }
-    })
+    }) as PolylineEntity
     this.drawingEntities.push(polylineEntity)
 
     this.handler = new ScreenSpaceEventHandler(this.viewer.canvas)
@@ -263,7 +250,7 @@ class Drawer {
         removeArrayItemFromBehind(positions, latestPosition)
       }
 
-      const polylineGraphics = polylineEntity.polyline as PolylineGraphics
+      const polylineGraphics = polylineEntity.polyline
       polylineGraphics.positions = new ConstantProperty(positions)
 
       this.polylines.push({
@@ -283,7 +270,7 @@ class Drawer {
           ...polyline,
           positions: showGuidance ? new CallbackProperty(() => positions, false) : positions
         }
-      })
+      }) as PolylineEntity
       this.drawingEntities = [polylineEntity]
     }, ScreenSpaceEventType.MIDDLE_CLICK)
   }
@@ -309,7 +296,7 @@ class Drawer {
         ...polyline,
         positions: showGuidance ? new CallbackProperty(() => positions, false) : positions
       }
-    })
+    }) as PolylineEntity
     // Create polygon entity
     let polygonEntity = this.entities.add({
       polygon: {
@@ -318,7 +305,7 @@ class Drawer {
           ? new CallbackProperty(() => new PolygonHierarchy(positions), false)
           : new PolygonHierarchy(positions)
       }
-    })
+    }) as PolygonEntity
 
     this.handler?.destroy()
     this.handler = new ScreenSpaceEventHandler(this.viewer.canvas)
@@ -376,9 +363,9 @@ class Drawer {
         removeArrayItemFromBehind(positions, latestPosition)
       }
 
-      const polylineGraphics = polylineEntity.polyline as PolylineGraphics
+      const polylineGraphics = polylineEntity.polyline
       polylineGraphics.positions = new ConstantProperty(positions)
-      const polygonGraphics = polygonEntity.polygon as PolygonGraphics
+      const polygonGraphics = polygonEntity.polygon
       polygonGraphics.hierarchy = new ConstantProperty(new PolygonHierarchy(positions))
 
       this.polygons.push({
@@ -400,7 +387,7 @@ class Drawer {
           ...polyline,
           positions: showGuidance ? new CallbackProperty(() => positions, false) : positions
         }
-      })
+      }) as PolylineEntity
       polygonEntity = this.entities.add({
         polygon: {
           ...polygon,
@@ -410,7 +397,7 @@ class Drawer {
               }, false)
             : new PolygonHierarchy(positions)
         }
-      })
+      }) as PolygonEntity
     }, ScreenSpaceEventType.MIDDLE_CLICK)
   }
   /**
@@ -449,5 +436,3 @@ class Drawer {
     Object.setPrototypeOf(this, null)
   }
 }
-
-export default Drawer
