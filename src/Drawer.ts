@@ -37,6 +37,8 @@ export type DrawPolylineOptions = {
   polyline?: Omit<PolylineGraphics.ConstructorOptions, 'positions'>
   showGuidance?: boolean
   stopAfterFinish?: boolean
+  isFinished?: (drawer: Drawer) => boolean
+  onFinished?: (drawer: Drawer) => any
 }
 export type DrawPolygonOptions = DrawPolylineOptions & {
   polygon?: Omit<PolygonGraphics.ConstructorOptions, 'hierarchy'>
@@ -174,7 +176,7 @@ export class Drawer {
     this.cancel()
     this.removeDrawingEntities()
 
-    const { point, label, polyline, showGuidance, stopAfterFinish } = {
+    const { point, label, polyline, showGuidance, stopAfterFinish, isFinished, onFinished } = {
       ...defulatDrawPolylineOptions,
       ...options
     }
@@ -261,9 +263,10 @@ export class Drawer {
       positions = []
       dataSets = []
 
-      if (stopAfterFinish) {
+      if (stopAfterFinish || (isFinished && isFinished(this))) {
         this.cancel()
         this.drawingEntities = []
+        if (onFinished) onFinished(this)
         return
       }
 
@@ -284,7 +287,16 @@ export class Drawer {
     this.cancel()
     this.removeDrawingEntities()
 
-    const { point, label, polyline, polygon, showGuidance, stopAfterFinish } = {
+    const {
+      point,
+      label,
+      polyline,
+      polygon,
+      showGuidance,
+      stopAfterFinish,
+      isFinished,
+      onFinished
+    } = {
       ...defulatDrawPolygonOptions,
       ...options
     }
@@ -380,9 +392,10 @@ export class Drawer {
       positions = []
       dataSets = []
 
-      if (stopAfterFinish) {
+      if (stopAfterFinish || (isFinished && isFinished(this))) {
         this.cancel()
         this.drawingEntities = []
+        if (onFinished) onFinished(this)
         return
       }
 
