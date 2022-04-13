@@ -44,21 +44,21 @@ export interface IProperty<T> {
   equals(other?: Property): boolean
 }
 
-export type PointEntity = Entity & {
+export interface PointEntity extends Entity {
   point: PointGraphics
   position: PositionProperty
 }
-export type LabelEntity = Entity & {
+export interface LabelEntity extends Entity {
   label: LabelGraphics
   position: PositionProperty
 }
-export type PolylineEntity = Entity & {
-  polyline: PolylineGraphics & {
+export interface PolylineEntity extends Entity {
+  polyline: Omit<PolylineGraphics, 'positions'> & {
     positions: IProperty<Cartesian3[]>
   }
 }
-export type PolygonEntity = Entity & {
-  polygon: PolygonGraphics & {
+export interface PolygonEntity extends Entity {
+  polygon: Omit<PolygonGraphics, 'hierarchy'> & {
     hierarchy: IProperty<PolygonHierarchy>
   }
 }
