@@ -1,4 +1,11 @@
-import { Cartographic, Matrix4, Transforms, Cartesian3 } from 'cesium'
+import {
+  Cartographic,
+  Matrix4,
+  Transforms,
+  Cartesian3,
+  DeveloperError,
+  Math as CesiumMath
+} from 'cesium'
 
 /**
  * Remove a item in array searching from behind
@@ -65,4 +72,34 @@ export function getEastNorthUpPositions(
   }
 
   return [positions, localToWorldMatrix, worldToLocalMatrix]
+}
+
+/**
+ * Get regular polygon positions.
+ * @param center Position of center.
+ * @param radius Radius of polygon.
+ * @param sides Number of sides, must be greater than 3.
+ * @returns
+ */
+export function getRegularPolygonPositions(center: Cartesian3, radius: number, sides: number) {
+  if (sides < 3) {
+    throw new DeveloperError('radius must be greater than 3')
+  }
+
+  const [[localCenter], localToWorldMatrix] = getEastNorthUpPositions(center)
+
+  const split = 360 / sides
+  const positions = []
+  let i = 0
+
+  while (i <= sides) {
+    const radian = CesiumMath.toRadians(split * i)
+    const pointPosition = localCenter.clone()
+    pointPosition.x += Math.cos(radian) * radius
+    pointPosition.y += Math.sin(radian) * radius
+    positions.push(Matrix4.multiplyByPoint(localToWorldMatrix, pointPosition, new Cartesian3()))
+    i++
+  }
+
+  return positions
 }
