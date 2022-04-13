@@ -16,6 +16,7 @@
 ### Features
 
 * add setHeight function ([f91e932](https://github.com/Gu-Miao/cesium-toolkit/commit/f91e93211bf03339fd7cf2cbe21ae54c3af58d13))
+* add Drawer ([75ead36](https://github.com/Gu-Miao/cesium-toolkit/commit/75ead36abef3d7282b162d49506ad9a80887075f))
 
 
 
