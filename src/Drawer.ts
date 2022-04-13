@@ -171,6 +171,9 @@ export class Drawer {
    * @param options Object that specify options of drawing
    */
   drawPolyline(options?: DrawPolylineOptions) {
+    this.cancel()
+    this.removeDrawingEntities()
+
     const { point, label, polyline, showGuidance, stopAfterFinish } = {
       ...defulatDrawPolylineOptions,
       ...options
@@ -181,8 +184,6 @@ export class Drawer {
 
     let positions: Cartesian3[] = []
     let dataSets: DataSet[] = []
-
-    this.cancel()
 
     // Create polyline entity
     let polylineEntity = this.entities.add({
@@ -262,6 +263,7 @@ export class Drawer {
 
       if (stopAfterFinish) {
         this.cancel()
+        this.drawingEntities = []
         return
       }
 
@@ -279,6 +281,9 @@ export class Drawer {
    * @param options Object that specify options of drawing
    */
   drawPolygon(options?: DrawPolygonOptions) {
+    this.cancel()
+    this.removeDrawingEntities()
+
     const { point, label, polyline, polygon, showGuidance, stopAfterFinish } = {
       ...defulatDrawPolygonOptions,
       ...options
@@ -307,7 +312,6 @@ export class Drawer {
       }
     }) as PolygonEntity
 
-    this.handler?.destroy()
     this.handler = new ScreenSpaceEventHandler(this.viewer.canvas)
 
     // Left click to set point position
@@ -377,8 +381,8 @@ export class Drawer {
       dataSets = []
 
       if (stopAfterFinish) {
-        const handler = this.handler as ScreenSpaceEventHandler
-        handler.destroy()
+        this.cancel()
+        this.drawingEntities = []
         return
       }
 
@@ -405,9 +409,17 @@ export class Drawer {
    */
   cancel() {
     this.handler?.destroy()
-    this.drawingEntities.forEach(entity => {
-      this.entities.remove(entity)
-    })
+  }
+  /**
+   * Remove drawing entities
+   */
+  removeDrawingEntities() {
+    const { length } = this.drawingEntities
+    let i = 0
+    while (i < length) {
+      this.entities.remove(this.drawingEntities[i])
+      i++
+    }
   }
   /**
    * Remove all entities
@@ -422,6 +434,7 @@ export class Drawer {
   destory(keepEntities = false) {
     // Remove entities and dataSouce
     this.cancel()
+    this.removeDrawingEntities()
     if (!keepEntities) {
       this.removeAll()
       this.viewer.dataSources.remove(this.dataSource)
