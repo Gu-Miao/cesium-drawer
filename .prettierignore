@@ -1,14 +1,7 @@
-# dependencies
 node_modules
-
-# build
-# dist
-
-# project files
-.gitignore
-CHANGELOG
-
-# lock files
+dist
+CHANGELOG.md
 package-lock.json
 yarn.lock
 yarn-*
+
