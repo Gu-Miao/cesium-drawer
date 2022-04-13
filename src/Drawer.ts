@@ -170,7 +170,7 @@ export class Drawer {
    * Draw polyline graphic
    * @param options Object that specify options of drawing
    */
-  drawPolyline(options: DrawPolylineOptions) {
+  drawPolyline(options?: DrawPolylineOptions) {
     const { point, label, polyline, showGuidance, stopAfterFinish } = {
       ...defulatDrawPolylineOptions,
       ...options
@@ -278,7 +278,7 @@ export class Drawer {
    * Draw polygon graphic
    * @param options Object that specify options of drawing
    */
-  drawPolygon(options: DrawPolygonOptions) {
+  drawPolygon(options?: DrawPolygonOptions) {
     const { point, label, polyline, polygon, showGuidance, stopAfterFinish } = {
       ...defulatDrawPolygonOptions,
       ...options
