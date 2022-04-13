@@ -103,3 +103,41 @@ export function getRegularPolygonPositions(center: Cartesian3, radius: number, s
 
   return positions
 }
+
+/**
+ * Get heading degree.
+ * @param p1 The first position.
+ * @param p2 Another position.
+ * @returns Heading degree.
+ */
+export function getHeadingDegree(p1: Cartesian3, p2: Cartesian3) {
+  const { x: x1, y: y1 } = p1
+  const { x: x2, y: y2 } = p2
+
+  const dividend = x2 - x1
+  const divisor = y2 - y1
+
+  // If x2=x1, alpha could only be 0 or 180.
+  if (dividend === 0) {
+    return divisor >= 0 ? 0 : 180
+  }
+
+  // If y2=y1, alpha could only be 90 or -90.
+  if (divisor === 0) {
+    // There is no equal judgement due to it already be done above.
+    return dividend > 0 ? 90 : -90
+  }
+
+  // Calculate the alpha angle.
+  const tanAlpha = (x2 - x1) / (y2 - y1)
+  const alpha = (Math.atan(tanAlpha) / Math.PI) * 180
+
+  if (divisor > 0) {
+    return alpha
+  } else {
+    // If y2-y1<0, alpha is just the supplement of real angle.
+    const multiplier = x2 - x1 > 0 ? 1 : -1
+    const realAlpha = (180 - Math.abs(alpha)) * multiplier
+    return realAlpha
+  }
+}
