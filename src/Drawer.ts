@@ -22,7 +22,7 @@ import type {
 } from 'cesium'
 import type { PointEntity, LabelEntity, PolylineEntity, PolygonEntity } from './types'
 import { removeArrayItemFromBehind } from './utils'
-import { addHeight } from './cesium'
+import { addHeight } from './toolkit'
 
 export type DrawerConstructorOptions = {
   viewer: Viewer
