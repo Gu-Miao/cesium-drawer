@@ -739,10 +739,10 @@ caniuse-lite@^1.0.30001280, caniuse-lite@^1.0.30001282, caniuse-lite@^1.0.300013
   resolved "https://registry.npmmirror.com/caniuse-lite/-/caniuse-lite-1.0.30001312.tgz#e11eba4b87e24d22697dae05455d5aea28550d5f"
   integrity sha512-Wiz1Psk2MEK0pX3rUzWaunLTZzqS2JYZFzNKqAiJGiuxIjRPLgV6+VDPOg6lQOUxmDwhTlh198JsTTi8Hzw6aQ==
 
-cesium@^1.91.0:
-  version "1.91.0"
-  resolved "https://registry.npmmirror.com/cesium/-/cesium-1.91.0.tgz#3b901913b5dca286406227d588617697ee3b6afc"
-  integrity sha512-HCwwYq7+qqB8c9ydz51luX1KP/apMiMVA8UAu8C7V2SOANUjOZQSi3CcXAtXXn1oUZQDrJlBs6sBT9nt0zRRLg==
+cesium@^1.92.0:
+  version "1.92.0"
+  resolved "https://registry.npmmirror.com/cesium/-/cesium-1.92.0.tgz#d4a736be7f3516830a814c4c99780a385c12a258"
+  integrity sha512-qU2EIV3M+ru6uF5UQUjUWXeq9UVieMBeq+Q8fzzNbFgeSbLrvnJ7jSJq0vvgaVDPe0PnmN72FZKMDiJdTFpMnQ==
 
 chalk@4.1.2, chalk@^4.0.0, chalk@^4.1.0:
   version "4.1.2"
