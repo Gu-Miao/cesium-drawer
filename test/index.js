@@ -6,7 +6,7 @@ const { Viewer, createWorldTerrain } = Cesium
 const CesiumToolkit = window.CesiumToolkit
 const {
   // Drawer,
-  sampleMixin
+  terrainSamplerMixin
 } = CesiumToolkit
 
 const viewer = new Viewer('cesiumContainer', {
@@ -27,5 +27,12 @@ viewer.scene.globe.depthTestAgainstTerrain = true
 //   stopAfterFinish: false
 // })
 
-viewer.extend(sampleMixin)
 viewer.extend(Cesium.viewerCesium3DTilesInspectorMixin)
+terrainSamplerMixin(viewer, {
+  onSample(err, result) {
+    if (err) {
+      throw err
+    }
+    console.log(result)
+  }
+})
