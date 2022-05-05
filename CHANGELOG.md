@@ -1,3 +1,13 @@
+## [0.3.1](https://github.com/Gu-Miao/cesium-toolkit/compare/v0.3.0...v0.3.1) (2022-05-05)
+
+
+### Bug Fixes
+
+* change `addHeight()` to `increaseHeight()` ([ec2db46](https://github.com/Gu-Miao/cesium-toolkit/commit/ec2db46b63c421e0a1d72ca97a33fd1fc808f57c))
+* handle if the second argument doesn't pass ([bc042a1](https://github.com/Gu-Miao/cesium-toolkit/commit/bc042a1e9de5411273fff7c5cdf049b8bcf8f57e))
+
+
+
 # [0.3.0](https://github.com/Gu-Miao/cesium-toolkit/compare/v0.2.0...v0.3.0) (2022-04-14)
 
 
