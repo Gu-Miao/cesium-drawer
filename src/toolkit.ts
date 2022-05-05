@@ -10,9 +10,9 @@ import {
 /**
  * Add height to a cartesian coordinate
  * @param position Cartesian position
- * @param height Height to add
+ * @param height Height to increase
  */
-export function addHeight(position: Cartesian3, height = 0) {
+export function increaseHeight(position: Cartesian3, height = 0) {
   const cartographic = Cartographic.fromCartesian(position)
   cartographic.height += height
   return Cartographic.toCartesian(cartographic)

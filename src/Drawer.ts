@@ -22,7 +22,7 @@ import type {
 } from 'cesium'
 import type { PointEntity, LabelEntity, PolylineEntity, PolygonEntity } from './types'
 import { removeArrayItemFromBehind } from './utils'
-import { addHeight } from './toolkit'
+import { increaseHeight } from './toolkit'
 
 export type DrawerConstructorOptions = {
   viewer: Viewer
@@ -154,7 +154,7 @@ export class Drawer {
     const { height } = labelOptions
     const isHeightFunction = typeof height === 'function'
     const labelPosition = height
-      ? addHeight(position, isHeightFunction ? height(this) : height)
+      ? increaseHeight(position, isHeightFunction ? height(this) : height)
       : position
     const text =
       typeof labelOptions.text === 'function'
