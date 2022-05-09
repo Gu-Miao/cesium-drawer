@@ -76,7 +76,7 @@ function createProdConfig() {
       input,
       output: {
         name: pkg.global,
-        file: pkg.browser,
+        file: 'dist/browser/cesium-toolkit.min.js',
         format: 'umd',
         exports: 'auto',
         sourcemap: true,
