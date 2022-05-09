@@ -1,3 +1,12 @@
+## [0.3.2](https://github.com/Gu-Miao/cesium-toolkit/compare/v0.3.1...v0.3.2) (2022-05-09)
+
+
+### Bug Fixes
+
+* remove browser option ([bbdc5dd](https://github.com/Gu-Miao/cesium-toolkit/commit/bbdc5dd121a36348982db936de39dc3d221e0b65))
+
+
+
 ## [0.3.1](https://github.com/Gu-Miao/cesium-toolkit/compare/v0.3.0...v0.3.1) (2022-05-05)
 
 
