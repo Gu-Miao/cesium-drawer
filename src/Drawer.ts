@@ -200,7 +200,7 @@ export class Drawer {
     this.handler = new ScreenSpaceEventHandler(this.viewer.canvas)
 
     // Left click to set point position
-    this.handler.setInputAction(movement => {
+    this.handler.setInputAction((movement: ScreenSpaceEventHandler.PositionedEvent) => {
       const pickedPosition = this.viewer.scene.pickPosition(movement.position)
       if (!pickedPosition) return
 
@@ -224,7 +224,7 @@ export class Drawer {
     // Mouse move to show guidance
     let latestPosition: Cartesian3
     if (showGuidance) {
-      this.handler.setInputAction(movement => {
+      this.handler.setInputAction((movement: ScreenSpaceEventHandler.MotionEvent) => {
         const pickedPosition = this.viewer.scene.pickPosition(movement.endPosition)
         if (!pickedPosition) return
 
@@ -328,7 +328,7 @@ export class Drawer {
     this.handler = new ScreenSpaceEventHandler(this.viewer.canvas)
 
     // Left click to set point position
-    this.handler.setInputAction(movement => {
+    this.handler.setInputAction((movement: ScreenSpaceEventHandler.PositionedEvent) => {
       const pickedPosition = this.viewer.scene.pickPosition(movement.position)
       if (!pickedPosition) return
 
@@ -350,7 +350,7 @@ export class Drawer {
     // Mouse move to show guidance
     let latestPosition: Cartesian3
     if (showGuidance) {
-      this.handler.setInputAction(movement => {
+      this.handler.setInputAction((movement: ScreenSpaceEventHandler.MotionEvent) => {
         const pickedPosition = this.viewer.scene.pickPosition(movement.endPosition)
         if (!pickedPosition) return
 
