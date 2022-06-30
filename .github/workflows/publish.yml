@@ -21,8 +21,8 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
           restore-keys: ${{ runner.OS }}-build-${{ env.cache-name }}-${{ runner.OS }}-build-${{ runner.OS }}-
 
-      - run: npm install yarn -g
-      - run: yarn install --frozen-lockfile
+      - run: corepack enable
+      - run: yarn
       - run: yarn build
       - run: npm publish
         env:
