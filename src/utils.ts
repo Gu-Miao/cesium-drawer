@@ -17,3 +17,13 @@ export function removeArrayItemFromBehind(array: any[], item: any) {
 
   return array
 }
+
+/**
+ * Convert promise to tuple
+ * @param promise
+ */
+export function to<T>(promise: Promise<T>): Promise<[null, T] | [any]> {
+  return new Promise(reslove => {
+    promise.then(res => reslove([null, res])).catch(err => [err])
+  })
+}

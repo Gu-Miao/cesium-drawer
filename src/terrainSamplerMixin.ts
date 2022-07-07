@@ -5,14 +5,13 @@ import {
   JulianDate,
   sampleTerrainMostDetailed,
   Cartographic,
-  Math as CesiumMath,
-  //@ts-ignore
-  VERSION
+  Math as CesiumMath
 } from 'cesium'
 import { Drawer } from './Drawer'
+import { to } from './utils'
 
 type onSampleSucceeded = (err: null, result: Cartographic[]) => any
-type onSampleFailed = (err: null) => any
+type onSampleFailed = (err: any) => any
 
 type Options = {
   onSample?: onSampleSucceeded & onSampleFailed
@@ -24,11 +23,10 @@ export function terrainSamplerMixin(viewer: Viewer, options: Options = {}) {
   }
 
   const { onSample } = options
-  const catchName = parseFloat(VERSION) >= 1.92 ? 'catch' : 'otherwise'
 
   const drawer = new Drawer({
     viewer,
-    dataSourceName: 'sampleMixinDataSource'
+    dataSourceName: 'terrainSamplerMixinDataSource'
   })
 
   const container = document.createElement('div')
@@ -60,40 +58,43 @@ export function terrainSamplerMixin(viewer: Viewer, options: Options = {}) {
     tips.style.color = ''
     drawer.drawPolyline({
       label: false,
-      onFinished(drawer) {
+      async onFinished(drawer) {
         tips.innerHTML = 'sampling...'
         const { polyline } = drawer.polylines[0]
         const positions = polyline.polyline.positions.getValue(new JulianDate())
         const cartographices = positions.map(position => Cartographic.fromCartesian(position))
-        //@ts-ignore
-        sampleTerrainMostDetailed(viewer.terrainProvider, cartographices)
-          .then(result => {
-            let message = '[\n'
-            let i = 0
-            const { length } = result
-            while (i < length) {
-              const { longitude, latitude, height } = result[i]
-              const lon = CesiumMath.toDegrees(longitude)
-              const lat = CesiumMath.toDegrees(latitude)
-              message += `  [${lon}, ${lat}, ${height}],\n`
-              i++
-            }
-            message += ']'
-            console.log(message)
-            if (typeof onSample === 'function') {
-              onSample(null, result)
-            }
-            tips.innerHTML = 'Sample successfully! You could open devtools and copy the result.'
-            tips.style.color = '#2ed573'
-          })
-          [catchName]((err: any) => {
-            if (typeof onSample === 'function') {
-              onSample(err)
-            }
-            tips.innerHTML = 'Sample failed! You could devtools and see the reason.'
-            tips.style.color = '#ff4d4d'
-            throw err
-          })
+        const promise = sampleTerrainMostDetailed(viewer.terrainProvider, cartographices)
+        const [err, result] = await to(promise)
+
+        if (err) {
+          if (typeof onSample === 'function') onSample(err)
+          tips.innerHTML = 'Sample failed! You could devtools and see the reason.'
+          tips.style.color = '#ff4d4d'
+          throw err
+        }
+        if (!result) {
+          const err = new Error('result is undefined')
+          if (typeof onSample === 'function') onSample(err)
+          tips.innerHTML = 'Sample failed! You could devtools and see the reason.'
+          tips.style.color = '#ff4d4d'
+          throw err
+        }
+
+        let message = '[\n'
+        let i = 0
+        const { length } = result
+        while (i < length) {
+          const { longitude, latitude, height } = result[i]
+          const lon = CesiumMath.toDegrees(longitude)
+          const lat = CesiumMath.toDegrees(latitude)
+          message += `  [${lon}, ${lat}, ${height}],\n`
+          i++
+        }
+        message += ']'
+        console.log(message)
+        if (typeof onSample === 'function') onSample(null, result)
+        tips.innerHTML = 'Sample successfully! You could open devtools and copy the result.'
+        tips.style.color = '#2ed573'
       }
     })
   }
@@ -105,6 +106,7 @@ export function terrainSamplerMixin(viewer: Viewer, options: Options = {}) {
   cleanButton.onclick = () => {
     drawer.cancel()
     drawer.removeAll()
+    tips.innerHTML = 'in idle...'
   }
   box.append(cleanButton)
 
