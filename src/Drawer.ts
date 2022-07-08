@@ -340,7 +340,7 @@ export class Drawer {
         dataSet.point = pointEntity
       }
       if (label) {
-        const data = { position: pickedPosition, index: positions.length - 1, positions }
+        const data = { position: pickedPosition, index: dataSets.length, positions }
         const labelEntity = this.createLabel(data, labelOptions)
         dataSet.label = labelEntity
       }
