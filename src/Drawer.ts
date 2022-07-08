@@ -182,8 +182,8 @@ export class Drawer {
       ...options
     }
 
-    const pointOptions = typeof point === 'object' ? point : defaultPointOptions
-    const labelOptions = typeof label === 'object' ? label : defaultLabeLOptions
+    const pointOptions = { ...defaultPointOptions, ...(typeof point === 'object' ? point : {}) }
+    const labelOptions = { ...defaultLabeLOptions, ...(typeof label === 'object' ? label : {}) }
 
     let positions: Cartesian3[] = []
     let dataSets: DataSet[] = []
@@ -302,8 +302,8 @@ export class Drawer {
       ...options
     }
 
-    const pointOptions = typeof point === 'object' ? point : defaultPointOptions
-    const labelOptions = typeof label === 'object' ? label : defaultLabeLOptions
+    const pointOptions = { ...defaultPointOptions, ...(typeof point === 'object' ? point : {}) }
+    const labelOptions = { ...defaultLabeLOptions, ...(typeof label === 'object' ? label : {}) }
 
     let positions: Cartesian3[] = []
     let dataSets: DataSet[] = []
