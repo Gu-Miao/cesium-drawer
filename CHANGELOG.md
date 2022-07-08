@@ -1,3 +1,18 @@
+# [0.5.0](https://github.com/Gu-Miao/cesium-toolkit/compare/v0.4.0...v0.5.0) (2022-07-08)
+
+
+### Bug Fixes
+
+* fix label index issue ([0c972fa](https://github.com/Gu-Miao/cesium-toolkit/commit/0c972fa0f094fec6476d5aa1a7490c4d2225b79c))
+
+
+### Features
+
+* add createContinuousWallGeometry ([988d09d](https://github.com/Gu-Miao/cesium-toolkit/commit/988d09d5618d74effe3d663af730a9c7a7c28d23))
+* merge point and label options rather than replace them ([1230118](https://github.com/Gu-Miao/cesium-toolkit/commit/1230118360bde63b788bd709baea2c56a07c16de))
+
+
+
 # [0.4.0](https://github.com/Gu-Miao/cesium-toolkit/compare/v0.3.2...v0.4.0) (2022-06-30)
 
 
